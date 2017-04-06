@@ -45,46 +45,7 @@ public class JimmySwipeAdapter extends PagerAdapter {
         databaseAccess.close();
         this.ctx = ctx;
     }
-    public Bitmap screenShot(View view) {
-        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(),
-                view.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
-        return bitmap;
-    }
 
-    private void saveScreenshot(Bitmap bm) {
-        ByteArrayOutputStream bao = null;
-        File file = null;
-
-        try {
-            bao = new ByteArrayOutputStream();
-            bm.compress(Bitmap.CompressFormat.PNG,100,bao);
-
-            file = new File(Environment.getExternalStorageDirectory()+ File.separator + "Image.jpg");
-            file.createNewFile();
-
-            FileOutputStream fos  = new FileOutputStream(file);
-            fos.write(bao.toByteArray());
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Uri uri = Uri.fromFile(file);
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
-        intent.setType("image/*");
-
-        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
-        intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
-        intent.putExtra(Intent.EXTRA_STREAM, uri);
-        try {
-            ctx.startActivity(Intent.createChooser(intent, "Share Screenshot"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(ctx, "No App Available", Toast.LENGTH_SHORT).show();
-        }
-    }
     @Override
     public int getCount() {
         return jimmyQuotes.size();
@@ -101,19 +62,8 @@ public class JimmySwipeAdapter extends PagerAdapter {
         final View itemView = layoutInflater.inflate(R.layout.jimmy_swipe_layout,container,false);
         TextView jimmyQuote = (TextView)itemView.findViewById(R.id.tvJimmyQuotes);
         ImageView jimmyImage = (ImageView)itemView.findViewById(R.id.ivJimmy);
-        Typeface custom_font = Typeface.createFromAsset(ctx.getAssets(),"fonts/sfns.ttf");
+        Typeface custom_font = Typeface.createFromAsset(ctx.getAssets(),"fonts/whale.ttf");
         jimmyQuote.setTypeface(custom_font);
-        final ImageButton ShareButton = (ImageButton)itemView.findViewById(R.id.btnShare);
-        ShareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(ctx, "Button Clicked", Toast.LENGTH_SHORT).show();
-                ShareButton.setVisibility(View.INVISIBLE);
-                Bitmap mbitmap = screenShot(itemView);
-                ShareButton.setVisibility(View.VISIBLE);
-                saveScreenshot(mbitmap);
-            }
-        });
         jimmyQuote.setText(jimmyQuotes.get(position));
         Random random = new Random();
         int diceroll = random.nextInt(4);

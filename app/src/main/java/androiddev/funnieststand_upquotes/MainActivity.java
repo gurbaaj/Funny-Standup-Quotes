@@ -2,6 +2,7 @@ package androiddev.funnieststand_upquotes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    int comicImages[] = {R.drawable.carlin, R.drawable.mitch, R.drawable.bill, R.drawable.steven, R.drawable.jimmy,R.drawable.louie};
+    int comicImages[] = {R.drawable.carlin, R.drawable.mitch, R.drawable.bill, R.drawable.steven, R.drawable.jimmy, R.drawable.louie};
     String[] comedian = {"George Carlin", "Mitch Hedberg", "Bill Burr", "Steven Wright"
-            , "Jimmy Carr","Louis CK"};
+            , "Jimmy Carr", "Louis CK"};
 
     public static interface ClickListener {
         public void onClick(View view, int position);
@@ -74,7 +75,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        adapter = new RecyclerAdapter(comedian, comicImages);
+        adapter = new RecyclerAdapter(comedian, comicImages, this);
+
+        //MediaPlayer Declaration
+
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -83,21 +87,33 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view, int position) {
                 switch (position) {
                     case 0:
+                        MediaPlayer mp = MediaPlayer.create(MainActivity.this, R.raw.click_one);
+                        mp.start();
                         startActivity(new Intent(MainActivity.this, CarlinActivity.class));
                         break;
                     case 1:
+                        MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.click_one);
+                        mediaPlayer.start();
                         startActivity(new Intent(MainActivity.this, MitchActivity.class));
                         break;
                     case 2:
+                        MediaPlayer mp1 = MediaPlayer.create(MainActivity.this, R.raw.click_one);
+                        mp1.start();
                         startActivity(new Intent(MainActivity.this, BillActivity.class));
                         break;
                     case 3:
+                        MediaPlayer mp2 = MediaPlayer.create(MainActivity.this,R.raw.click_one);
+                        mp2.start();
                         startActivity(new Intent(MainActivity.this, StevenActivity.class));
                         break;
                     case 4:
+                        MediaPlayer mp3 = MediaPlayer.create(MainActivity.this,R.raw.click_one);
+                        mp3.start();
                         startActivity(new Intent(MainActivity.this, JimmyActivity.class));
                         break;
                     case 5:
+                        MediaPlayer mp4 = MediaPlayer.create(MainActivity.this,R.raw.click_one);
+                        mp4.start();
                         startActivity(new Intent(MainActivity.this, LouisActivity.class));
                         break;
                 }

@@ -12,19 +12,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".subActivities.CarlinActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".subActivities.MitchActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".subActivities.StevenActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".subActivities.BillActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".subActivities.JimmyActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".subActivities.LouisActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SplashScreen"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".subActivities.CarlinActivity" />
-        <activity android:name=".subActivities.MitchActivity" />
-        <activity android:name=".subActivities.StevenActivity" />
-        <activity android:name=".subActivities.BillActivity" />
-        <activity android:name=".subActivities.JimmyActivity" />
-        <activity android:name=".subActivities.LouisActivity"></activity>
     </application>
 
 </manifest>

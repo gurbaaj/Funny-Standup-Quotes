@@ -45,47 +45,7 @@ public class LouieSwipeAdapter extends PagerAdapter {
         this.ctx = ctx;
     }
 
-    public Bitmap screenShot(View view){
-        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(),view.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
-        return bitmap;
-    }
 
-    public void shareScreenShot(Bitmap bitmap){
-
-        ByteArrayOutputStream bao;
-        File file = null;
-
-        try{
-            bao = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,bao);
-            file = new File(Environment.getExternalStorageDirectory() + File.separator + "NewImage.jpg");
-            file.createNewFile();
-
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(bao.toByteArray());
-            fos.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        Uri uri = Uri.fromFile(file);
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
-        intent.setType("image/*");
-
-        intent.putExtra(Intent.EXTRA_SUBJECT,"");
-        intent.putExtra(Intent.EXTRA_TEXT,"");
-        intent.putExtra(Intent.EXTRA_STREAM,uri);
-        try{
-            ctx.startActivity(Intent.createChooser(intent,"Share Quote"));
-        }catch (Exception e){
-            e.printStackTrace();
-            Toast.makeText(ctx,"No App Avaiable",Toast.LENGTH_SHORT).show();
-        }
-
-    }
     @Override
     public int getCount() {
         return louieQuotes.size();
@@ -102,17 +62,8 @@ public class LouieSwipeAdapter extends PagerAdapter {
         final View itemView = layoutInflater.inflate(R.layout.louis_swipe_layout, container, false);
         ImageView louieImage = (ImageView) itemView.findViewById(R.id.ivLouie);
         TextView louieQuote = (TextView) itemView.findViewById(R.id.tvLouieQuotes);
-        Typeface custom_font = Typeface.createFromAsset(ctx.getAssets(),"fonts/sfns.ttf");
-        final ImageButton shareQuote = (ImageButton)itemView.findViewById(R.id.btnShare);
-        shareQuote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shareQuote.setVisibility(View.INVISIBLE);
-                Bitmap mbitmap = screenShot(itemView);
-                shareQuote.setVisibility(View.VISIBLE);
-                shareScreenShot(mbitmap);
-            }
-        });
+        Typeface custom_font = Typeface.createFromAsset(ctx.getAssets(),"fonts/whale.ttf");
+
         louieQuote.setTypeface(custom_font);
         louieQuote.setText(louieQuotes.get(position));
         Random random = new Random();

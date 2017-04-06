@@ -1,6 +1,8 @@
 package androiddev.funnieststand_upquotes;
 
 
+import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +18,10 @@ import android.widget.TextView;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
     int[] comicImages;
     String[] comedians;
+    Context ctx;
 
-    public RecyclerAdapter(String[] comedians, int[] comicImages) {
-
+    public RecyclerAdapter(String[] comedians, int[] comicImages,Context context) {
+        ctx = context;
         this.comedians = comedians;
         this.comicImages = comicImages;
     }
@@ -32,6 +35,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
+        Typeface custom_font = Typeface.createFromAsset(ctx.getAssets(),"fonts/whale.ttf");
+        holder.comedian.setTypeface(custom_font);
         holder.comedian.setText(comedians[position]);
         holder.comicImage.setImageResource(comicImages[position]);
     }
